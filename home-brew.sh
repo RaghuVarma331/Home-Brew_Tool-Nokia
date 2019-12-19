@@ -91,7 +91,8 @@ DRG()
     Release is Up
     $(date)* 
     ⬇️ [Download](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS) 
-    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/installation.txt)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1 Plus*
     ⚡Build Version: *DRG-$buildnumber-0-00WW-B01*
     ⚡Android Version: *$androidversion*
@@ -159,7 +160,8 @@ B2N()
     Release is Up
     $(date)* 
     ⬇️ [Download](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS) 
-    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/installation.txt)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7 Plus*
     ⚡Build Version: *B2N-$buildnumber-0-00WW-B01*
     ⚡Android Version: *$androidversion*
@@ -227,7 +229,8 @@ PL2()
     Release is Up
     $(date)* 
     ⬇️ [Download](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS) 
-    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/installation.txt)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1*
     ⚡Build Version: *PL2-$buildnumber-0-00WW-B01*
     ⚡Android Version: *$androidversion*
@@ -295,7 +298,8 @@ CTL()
     Release is Up
     $(date)* 
     ⬇️ [Download](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS) 
-    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/installation.txt)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7.1*
     ⚡Build Version: *CTL-$buildnumber-0-00WW-B01*
     ⚡Android Version: *$androidversion*
