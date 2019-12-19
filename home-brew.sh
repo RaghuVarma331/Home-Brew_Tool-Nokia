@@ -28,6 +28,8 @@ DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/8
 B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/3f78de06f86cc03da028648341aa1987fe33b2df.zip
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/6c40f587b1362fba6036cf15af9f0bded10dcc9d.zip
 CTL=https://android.googleapis.com/packages/ota-api/nokia_ctlsprout_crystal00ww/b708f828b774c5d737530f3d1ea200db7a918308.zip
+password=
+path=
 
 # Init Methods
 
