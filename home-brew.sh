@@ -18,6 +18,7 @@
 
 clear
 
+Telegram_Api_code=
 url=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/810351d123009ec07c1cb5857c4707fdeba776ef.zip
 path=/root
 device=DRG
@@ -78,7 +79,22 @@ sshpass -p $password rsync -avP -e ssh DRG-$buildnumber-0-00WW-B01-$androidversi
 sshpass -p $password rsync -avP -e ssh B2N-$buildnumber-0-00WW-B01-$androidversion.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/b2n-sprout/STOCK-ROMS
 sshpass -p $password rsync -avP -e ssh CTL-$buildnumber-0-00WW-B01-$androidversion.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/ctl-sprout/STOCK-ROMS
 sshpass -p $password rsync -avP -e ssh PL2-$buildnumber-0-00WW-B01-$androidversion.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/pl2-sprout/STOCK-ROMS
-clear
+wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
+python telegram.py -t $Telegram_Api_code -c @Nokia6plusofficial -P image.png -C " 
+*
+New Home Brew Stock Rom 
+Release is Up
+$(date)*
+⬇️ [Download](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS)
+💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/installation.txt)
+📱 Device: *Nokia 6.1 Plus*
+⚡Build Version: *$device-$buildnumber-0-00WW-B01-$androidversion.zip*
+⚡Android Version: *$androidversion*
+⚡Google Security Patch : *$securitypatch*
+👤 By: *Raghu Varma*
+#OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
+Follow: @Nokia6plusofficial ✅" 
 echo "------------------------------------------------------------------------------"
 echo " build is in                                                                  "
 echo " $path/stock/output/$device-$buildnumber-0-00WW-B01-$androidversion.zip       "
