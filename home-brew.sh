@@ -23,7 +23,7 @@ clear
 Telegram_Api_code=
 securitypatch=2019-07-05
 androidversion=9.0
-buildversion=354H
+buildnumber=354H
 DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/810351d123009ec07c1cb5857c4707fdeba776ef.zip
 B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/3f78de06f86cc03da028648341aa1987fe33b2df.zip
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/6c40f587b1362fba6036cf15af9f0bded10dcc9d.zip
