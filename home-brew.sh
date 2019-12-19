@@ -46,7 +46,6 @@ chmod a+x update_metadata_pb2.py
 chmod a+x simg2img
 chmod a+x img2simg
 ./payload_dumper.py payload.bin 
-rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc
 mv abl.img          $device-$buildnumber-0-00WW-B01-abl.img
 mv bluetooth.img    $device-$buildnumber-0-00WW-B01-bluetooth.img
 mv boot.img         $device-$buildnumber-0-00WW-B01-boot.img
@@ -70,8 +69,7 @@ mv tz.img           $device-$buildnumber-0-00WW-B01-tz.img
 mv xbl.img          $device-$buildnumber-0-00WW-B01-xbl.img
 ./img2simg system.img $device-$buildnumber-0-00WW-B01-system.img
 ./img2simg vendor.img $device-$buildnumber-0-00WW-B01-vendor.img
-rm -r system.img
-rm -r vendor.img
+rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
 zip -r $device-$buildnumber-0-00WW-B01-$androidversion.zip *
 cp -r $device-$buildnumber-0-00WW-B01-$androidversion.zip $path/stock/output
 cd
