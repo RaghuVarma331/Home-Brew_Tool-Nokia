@@ -76,11 +76,11 @@ DRG()
     ./img2simg system.img DRG-$buildnumber-0-00WW-B01-system.img
     ./img2simg vendor.img DRG-$buildnumber-0-00WW-B01-vendor.img
     rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r DRG-$buildnumber-0-00WW-B01-$androidversion.zip *
-    cp -r DRG-$buildnumber-0-00WW-B01-$androidversion.zip $path/DRG/output
+    zip -r DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
+    cp -r DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/DRG/output
     cd
     cd $path/DRG/output
-    sshpass -p $password rsync -avP -e ssh DRG-$buildnumber-0-00WW-B01-$androidversion.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/drg-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/drg-sprout/STOCK-ROMS
     cd
     cd $path    
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
@@ -92,7 +92,7 @@ DRG()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS/DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1 Plus*
@@ -147,11 +147,11 @@ B2N()
     ./img2simg system.img B2N-$buildnumber-0-00WW-B01-system.img
     ./img2simg vendor.img B2N-$buildnumber-0-00WW-B01-vendor.img
     rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r B2N-$buildnumber-0-00WW-B01-$androidversion.zip *
-    cp -r B2N-$buildnumber-0-00WW-B01-$androidversion.zip $path/B2N/output
+    zip -r B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
+    cp -r B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/B2N/output
     cd
     cd $path/B2N/output
-    sshpass -p $password rsync -avP -e ssh B2N-$buildnumber-0-00WW-B01-$androidversion.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/b2n-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/b2n-sprout/STOCK-ROMS
     cd
     cd $path    
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
@@ -163,7 +163,7 @@ B2N()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS/B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7 Plus*
@@ -218,11 +218,11 @@ PL2()
     ./img2simg system.img PL2-$buildnumber-0-00WW-B01-system.img
     ./img2simg vendor.img PL2-$buildnumber-0-00WW-B01-vendor.img
     rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r PL2-$buildnumber-0-00WW-B01-$androidversion.zip *
-    cp -r PL2-$buildnumber-0-00WW-B01-$androidversion.zip $path/PL2/output
+    zip -r PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
+    cp -r PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/PL2/output
     cd
     cd $path/PL2/output
-    sshpass -p $password rsync -avP -e ssh PL2-$buildnumber-0-00WW-B01-$androidversion.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/pl2-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/pl2-sprout/STOCK-ROMS
     cd
     cd $path    
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
@@ -234,7 +234,7 @@ PL2()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS/PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1*
@@ -289,11 +289,11 @@ CTL()
     ./img2simg system.img CTL-$buildnumber-0-00WW-B01-system.img
     ./img2simg vendor.img CTL-$buildnumber-0-00WW-B01-vendor.img
     rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r CTL-$buildnumber-0-00WW-B01-$androidversion.zip *
-    cp -r CTL-$buildnumber-0-00WW-B01-$androidversion.zip $path/CTL/output
+    zip -r CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
+    cp -r CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/CTL/output
     cd
     cd $path/CTL/output
-    sshpass -p $password rsync -avP -e ssh CTL-$buildnumber-0-00WW-B01-$androidversion.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/ctl-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/ctl-sprout/STOCK-ROMS
     cd
     cd $path    
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
@@ -305,7 +305,7 @@ CTL()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS/CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7.1*
