@@ -89,8 +89,10 @@ DRG()
     *
     New Home Brew Stock Rom 
     Release is Up
-    $(date)* 
-    ⬇️ [Download](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS) 
+    
+    $(date)*
+    
+    ⬇️ [Download Rom](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1 Plus*
@@ -158,8 +160,10 @@ B2N()
     *
     New Home Brew Stock Rom 
     Release is Up
-    $(date)* 
-    ⬇️ [Download](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS) 
+    
+    $(date)*
+    
+    ⬇️ [Download Rom](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7 Plus*
@@ -227,8 +231,10 @@ PL2()
     *
     New Home Brew Stock Rom 
     Release is Up
-    $(date)* 
-    ⬇️ [Download](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS) 
+    
+    $(date)*
+    
+    ⬇️ [Download Rom](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1*
@@ -296,8 +302,10 @@ CTL()
     *
     New Home Brew Stock Rom 
     Release is Up
-    $(date)* 
-    ⬇️ [Download](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS) 
+    
+    $(date)*
+    
+    ⬇️ [Download Rom](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7.1*
