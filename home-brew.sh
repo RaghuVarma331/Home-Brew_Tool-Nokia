@@ -93,7 +93,7 @@ DRG()
     $(date)*
     
     ⬇️ [Download Rom](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS/DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
-    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1 Plus*
     ⚡Build Version: *DRG-$buildnumber-0-00WW-B01*
@@ -164,7 +164,7 @@ B2N()
     $(date)*
     
     ⬇️ [Download Rom](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS/B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
-    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7 Plus*
     ⚡Build Version: *B2N-$buildnumber-0-00WW-B01*
@@ -235,7 +235,7 @@ PL2()
     $(date)*
     
     ⬇️ [Download Rom](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS/PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
-    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1*
     ⚡Build Version: *PL2-$buildnumber-0-00WW-B01*
@@ -306,7 +306,7 @@ CTL()
     $(date)*
     
     ⬇️ [Download Rom](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS/CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
-    🔨 [Download flash tool](https://github.com/RaghuVarma331/Stock-Rom_Flash-Tool_Nokia/releases)
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7.1*
     ⚡Build Version: *CTL-$buildnumber-0-00WW-B01*
