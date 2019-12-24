@@ -11,6 +11,10 @@ A simple tool to make home brew stock rom from Full OTA.zip
     
     Nokia 6.1 (PL2)
     
+    Nokia 7.2 (DDV)
+    
+    Nokia 6.2 (SLD)
+    
 
 ## Requirements
     Linux
