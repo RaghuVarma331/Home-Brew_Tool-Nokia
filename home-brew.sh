@@ -79,7 +79,7 @@ DRG()
     ./img2simg system.img $buildnumber-system.img
     ./img2simg vendor.img $buildnumber-vendor.img
     cp -r system.img $path
-	rm -r system.img vendor.img
+    rm -r system.img vendor.img
     cd
     cd $path
     mkdir system
@@ -172,7 +172,7 @@ B2N()
     ./img2simg system.img $buildnumber-system.img
     ./img2simg vendor.img $buildnumber-vendor.img
     cp -r system.img $path
-	rm -r system.img vendor.img
+    rm -r system.img vendor.img
     cd
     cd $path
     mkdir system
@@ -265,7 +265,7 @@ PL2()
     ./img2simg system.img $buildnumber-system.img
     ./img2simg vendor.img $buildnumber-vendor.img
     cp -r system.img $path
-	rm -r system.img vendor.img
+    rm -r system.img vendor.img
     cd
     cd $path
     mkdir system
@@ -358,7 +358,7 @@ CTL()
     ./img2simg system.img $buildnumber-system.img
     ./img2simg vendor.img $buildnumber-vendor.img
     cp -r system.img $path
-	rm -r system.img vendor.img
+    rm -r system.img vendor.img
     cd
     cd $path
     mkdir system
