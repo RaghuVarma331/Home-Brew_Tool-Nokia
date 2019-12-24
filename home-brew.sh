@@ -25,6 +25,8 @@ DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/8
 B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/3f78de06f86cc03da028648341aa1987fe33b2df.zip
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/be7e54518410d1752dd72f99dba3aecdee793bdb.zip
 CTL=https://android.googleapis.com/packages/ota-api/nokia_ctlsprout_crystal00ww/b708f828b774c5d737530f3d1ea200db7a918308.zip
+DDV=https://android.googleapis.com/packages/ota-api/nokia_ddvsprout_daredevil00ww/833c052838239419faa9a4510da474c8b0caf7e3.zip
+SLD=https://android.googleapis.com/packages/ota-api/nokia_sldsprout_starlord00ww/7aba315391c8a45bc23f809ef27e072086d4c8d3.zip
 password=
 path=/root
 
@@ -402,14 +404,195 @@ CTL()
     rm -r CTL system* rv5.txt    
 } 
 
+DDV()
+{
+    mkdir DDV
+    cd DDV
+    wget $DDV
+    unzip *.zip
+    mkdir payload
+    mkdir output
+    cp -r payload.bin $path/DDV/payload
+    cd payload
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/payload_dumper.py
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/update_metadata_pb2.py
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/img2simg
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/simg2img
+    chmod a+x payload_dumper.py
+    chmod a+x update_metadata_pb2.py
+    chmod a+x simg2img
+    chmod a+x img2simg
+    ./payload_dumper.py payload.bin
+    cp -r system.img $path
+    cd
+    cd $path
+    mkdir system
+    mount -o rw,noatime system.img system
+    buildnumber=`cat system/system/build.prop | grep ro.build.version.incremental | cut -d "=" -f 2`
+    if [ $(echo $buildnumber | cut -d "." -f 2) == 0 ]; then
+    buildnumber=$(echo $buildnumber | cut -d "." -f 1)
+    fi
+    cd $path/DDV/payload
+    mv abl.img DDV-$buildnumber-abl.img
+    mv bluetooth.img DDV-$buildnumber-bluetooth.img
+    mv boot.img DDV-$buildnumber-boot.img
+    mv cmnlib.img DDV-$buildnumber-cmnlib.img
+    mv cmnlib64.img DDV-$buildnumber-cmnlib64.img
+    mv devcfg.img DDV-$buildnumber-devcfg.img
+    mv dtbo.img DDV-$buildnumber-dtbo.img
+    mv hyp.img DDV-$buildnumber-hyp.img
+    mv keymaster.img DDV-$buildnumber-keymaster.img
+    mv modem.img DDV-$buildnumber-modem.img
+    mv pmic.img DDV-$buildnumber-pmic.img
+    mv rpm.img DDV-$buildnumber-rpm.img
+    mv tz.img DDV-$buildnumber-tz.img
+    mv vbmeta.img DDV-$buildnumber-vbmeta.img
+    mv xbl.img DDV-$buildnumber-xbl.img
+    ./img2simg system.img DDV-$buildnumber-system.img
+    ./img2simg vendor.img DDV-$buildnumber-vendor.img
+    rm -r system.img vendor.img
+    cd
+    cd $path
+    androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
+    if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
+    androidversion=$(echo $androidversion | cut -d "." -f 1)
+    fi
+    securitypatch=`cat system/system/build.prop | grep ro.build.version.security_patch | cut -d "=" -f 2`
+    if [ $(echo $securitypatch | cut -d "." -f 2) == 0 ]; then
+    securitypatch=$(echo $securitypatch | cut -d "." -f 1)
+    fi
+    cd $path/DDV/payload
+    zip -r DDV-$buildnumber-$androidversion.0-HB.zip *.img
+    cp -r DDV-$buildnumber-$androidversion.0-HB.zip $path/DDV/output
+    cd
+    cd $path/DDV/output
+    sshpass -p $password rsync -avP -e ssh DDV-$buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/ddv-sprout/STOCK-ROMS
+    cd
+    cd $path
+    umount system
+    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
+    python telegram.py -t $Telegram_Api_code -c @Nokia7262 -P image.png -C " 
+    *
+    New Home Brew Stock Rom 
+    Release is Up
+    
+    $(date)*
+    
+    ⬇️ [Download Rom](https://sourceforge.net/projects/ddv-sprout/files/STOCK-ROMS/DDV-$buildnumber-$androidversion.0-HB.zip/download) 
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
+    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
+    📱 Device: *Nokia 7.2*
+    ⚡Build Version: *$buildnumber*
+    ⚡Android Version: *$androidversion.0*
+    ⚡Google Security Patch : *$securitypatch*
+    👤 By: *Raghu Varma*
+    #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
+    Follow: @Nokia7262 ✅" 
+    umount system    
+    rm -r system* DDV
+
+}
+
+
+SLD()
+{
+    mkdir SLD
+    cd SLD
+    wget $SLD
+    unzip *.zip
+    mkdir payload
+    mkdir output
+    cp -r payload.bin $path/SLD/payload
+    cd payload
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/payload_dumper.py
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/update_metadata_pb2.py
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/img2simg
+    wget https://github.com/RaghuVarma331/Home-Brew_Tool-Nokia/raw/master/simg2img
+    chmod a+x payload_dumper.py
+    chmod a+x update_metadata_pb2.py
+    chmod a+x simg2img
+    chmod a+x img2simg
+    ./payload_dumper.py payload.bin
+    cp -r system.img $path
+    cd
+    cd $path
+    mkdir system
+    mount -o rw,noatime system.img system
+    buildnumber=`cat system/system/build.prop | grep ro.build.version.incremental | cut -d "=" -f 2`
+    if [ $(echo $buildnumber | cut -d "." -f 2) == 0 ]; then
+    buildnumber=$(echo $buildnumber | cut -d "." -f 1)
+    fi
+    cd $path/SLD/payload
+    mv abl.img SLD-$buildnumber-abl.img
+    mv bluetooth.img SLD-$buildnumber-bluetooth.img
+    mv boot.img SLD-$buildnumber-boot.img
+    mv cmnlib.img SLD-$buildnumber-cmnlib.img
+    mv cmnlib64.img SLD-$buildnumber-cmnlib64.img
+    mv devcfg.img SLD-$buildnumber-devcfg.img
+    mv dtbo.img SLD-$buildnumber-dtbo.img
+    mv hyp.img SLD-$buildnumber-hyp.img
+    mv keymaster.img SLD-$buildnumber-keymaster.img
+    mv modem.img SLD-$buildnumber-modem.img
+    mv pmic.img SLD-$buildnumber-pmic.img
+    mv rpm.img SLD-$buildnumber-rpm.img
+    mv tz.img SLD-$buildnumber-tz.img
+    mv vbmeta.img SLD-$buildnumber-vbmeta.img
+    mv xbl.img SLD-$buildnumber-xbl.img
+    ./img2simg system.img SLD-$buildnumber-system.img
+    ./img2simg vendor.img SLD-$buildnumber-vendor.img
+    rm -r system.img vendor.img
+    cd
+    cd $path
+    androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
+    if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
+    androidversion=$(echo $androidversion | cut -d "." -f 1)
+    fi
+    securitypatch=`cat system/system/build.prop | grep ro.build.version.security_patch | cut -d "=" -f 2`
+    if [ $(echo $securitypatch | cut -d "." -f 2) == 0 ]; then
+    securitypatch=$(echo $securitypatch | cut -d "." -f 1)
+    fi
+    cd $path/SLD/payload
+    zip -r SLD-$buildnumber-$androidversion.0-HB.zip *.img
+    cp -r SLD-$buildnumber-$androidversion.0-HB.zip $path/SLD/output
+    cd
+    cd $path/SLD/output
+    sshpass -p $password rsync -avP -e ssh SLD-$buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/sld-sprout/STOCK-ROMS
+    cd
+    cd $path
+    umount system
+    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
+    python telegram.py -t $Telegram_Api_code -c @Nokia7262 -P image.png -C " 
+    *
+    New Home Brew Stock Rom 
+    Release is Up
+    
+    $(date)*
+    
+    ⬇️ [Download Rom](https://sourceforge.net/projects/sld-sprout/files/STOCK-ROMS/SLD-$buildnumber-$androidversion.0-HB.zip/download) 
+    🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
+    💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
+    📱 Device: *Nokia 6.2*
+    ⚡Build Version: *$buildnumber*
+    ⚡Android Version: *$androidversion.0*
+    ⚡Google Security Patch : *$securitypatch*
+    👤 By: *Raghu Varma*
+    #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
+    Follow: @Nokia7262 ✅" 
+    umount system    
+    rm -r system* SLD
+}
+
+
 # Main Menu
 clear
 echo "-----------------------------------------------------------"
 echo "A simple tool to make home brew stock rom from Full OTA.zip"
 echo "Coded By Raghu Varma.G "
 echo "-----------------------------------------------------------"
-PS3='Please select your option (1-4): '
-menuvar=("DRG" "B2N" "CTL" "PL2" "Exit")
+PS3='Please select your option (1-6): '
+menuvar=("DRG" "B2N" "CTL" "PL2" "DDV" "SLD" "Exit")
 select menuvar in "${menuvar[@]}"
 do
     case $menuvar in
@@ -489,6 +672,44 @@ do
             read -n1 -r key
             break
             ;;		    
+        "DDV")
+            clear
+            echo "----------------------------------------------"           
+            echo "Please be patient..."
+            # DDV
+            echo "----------------------------------------------"
+            echo "Posting in channel..."
+            echo " "
+            DDV
+	    echo " "	    
+            echo "----------------------------------------------"
+            echo "Posting in Channel finished."
+            echo " "
+            echo "----------------------------------------------"
+            echo "Press any key for end the script."
+            echo "----------------------------------------------"
+            read -n1 -r key
+            break
+            ;;
+        "SLD")
+            clear
+            echo "----------------------------------------------"           
+            echo "Please be patient..."
+            # SLD
+            echo "----------------------------------------------"
+            echo "Posting in channel..."
+            echo " "
+            SLD
+	    echo " "	    
+            echo "----------------------------------------------"
+            echo "Posting in Channel finished."
+            echo " "
+            echo "----------------------------------------------"
+            echo "Press any key for end the script."
+            echo "----------------------------------------------"
+            read -n1 -r key
+            break
+            ;;			    
         "Exit")
             break
             ;;
