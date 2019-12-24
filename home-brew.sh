@@ -21,9 +21,6 @@ clear
 # Init Fields
 
 Telegram_Api_code=
-securitypatch=2019-07-05
-androidversion=9.0
-buildnumber=354H
 DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/810351d123009ec07c1cb5857c4707fdeba776ef.zip
 B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/3f78de06f86cc03da028648341aa1987fe33b2df.zip
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/be7e54518410d1752dd72f99dba3aecdee793bdb.zip
@@ -38,7 +35,7 @@ DRG()
     mkdir DRG
     cd DRG
     wget $DRG
-    unzip *
+    unzip *.zip
     mkdir payload
     mkdir output
     cp -r payload.bin $path/DRG/payload
@@ -52,37 +49,57 @@ DRG()
     chmod a+x simg2img
     chmod a+x img2simg
     ./payload_dumper.py payload.bin 
-    mv abl.img          DRG-$buildnumber-0-00WW-B01-abl.img
-    mv bluetooth.img    DRG-$buildnumber-0-00WW-B01-bluetooth.img
-    mv boot.img         DRG-$buildnumber-0-00WW-B01-boot.img
-    mv cda.img          DRG-$buildnumber-0-00WW-B01-cda.img
-    mv cmnlib.img       DRG-$buildnumber-0-00WW-B01-cmnlib.img
-    mv cmnlib64.img     DRG-$buildnumber-0-00WW-B01-cmnlib64.img
-    mv devcfg.img       DRG-$buildnumber-0-00WW-B01-devcfg.img
-    mv dsp.img          DRG-$buildnumber-0-00WW-B01-dsp.img
-    mv hidden.img       DRG-$buildnumber-0-00WW-B01-hidden.img
-    mv hyp.img          DRG-$buildnumber-0-00WW-B01-hyp.img
-    mv keymaster.img    DRG-$buildnumber-0-00WW-B01-keymaster.img
-    mv mdtp.img         DRG-$buildnumber-0-00WW-B01-mdtp.img
-    mv mdtpsecapp.img   DRG-$buildnumber-0-00WW-B01-mdtpsecapp.img
-    mv modem.img        DRG-$buildnumber-0-00WW-B01-modem.img
-    mv nvdef.img        DRG-$buildnumber-0-00WW-B01-nvdef.img
-    mv pmic.img         DRG-$buildnumber-0-00WW-B01-pmic.img
-    mv rpm.img          DRG-$buildnumber-0-00WW-B01-rpm.img
-    mv splash.img       DRG-$buildnumber-0-00WW-B01-splash.img
-    mv systeminfo.img   DRG-$buildnumber-0-00WW-B01-systeminfo.img
-    mv tz.img           DRG-$buildnumber-0-00WW-B01-tz.img
-    mv xbl.img          DRG-$buildnumber-0-00WW-B01-xbl.img
-    ./img2simg system.img DRG-$buildnumber-0-00WW-B01-system.img
-    ./img2simg vendor.img DRG-$buildnumber-0-00WW-B01-vendor.img
-    rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
-    cp -r DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/DRG/output
+    sed -n 1p systeminfo.img > rv1.txt
+    sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
+    sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
+    sed 's/,//g' rv3.txt > rv4.txt
+    sed 's/.$//' rv4.txt > $path/rv5.txt
+    buildnumber=$(grep "DRG" $path/rv5.txt)
+    mv abl.img          $buildnumber-abl.img
+    mv bluetooth.img    $buildnumber-bluetooth.img
+    mv boot.img         $buildnumber-boot.img
+    mv cda.img          $buildnumber-cda.img
+    mv cmnlib.img       $buildnumber-cmnlib.img
+    mv cmnlib64.img     $buildnumber-cmnlib64.img
+    mv devcfg.img       $buildnumber-devcfg.img
+    mv dsp.img          $buildnumber-dsp.img
+    mv hidden.img       $buildnumber-hidden.img
+    mv hyp.img          $buildnumber-hyp.img
+    mv keymaster.img    $buildnumber-keymaster.img
+    mv mdtp.img         $buildnumber-mdtp.img
+    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
+    mv modem.img        $buildnumber-modem.img
+    mv nvdef.img        $buildnumber-nvdef.img
+    mv pmic.img         $buildnumber-pmic.img
+    mv rpm.img          $buildnumber-rpm.img
+    mv splash.img       $buildnumber-splash.img
+    mv systeminfo.img   $buildnumber-systeminfo.img
+    mv tz.img           $buildnumber-tz.img
+    mv xbl.img          $buildnumber-xbl.img
+    ./img2simg system.img $buildnumber-system.img
+    ./img2simg vendor.img $buildnumber-vendor.img
+    cp -r system.img $path
+	rm -r system.img vendor.img
+    cd
+    cd $path
+    mkdir system
+    mount -o rw,noatime system.img system
+    androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
+    if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
+    androidversion=$(echo $androidversion | cut -d "." -f 1)
+    fi
+    securitypatch=`cat system/system/build.prop | grep ro.build.version.security_patch | cut -d "=" -f 2`
+    if [ $(echo $securitypatch | cut -d "." -f 2) == 0 ]; then
+    securitypatch=$(echo $securitypatch | cut -d "." -f 1)
+    fi    
+    cd $path/DRG/payload
+    zip -r $buildnumber-$androidversion.0-HB.zip *.img
+    cp -r $buildnumber-$androidversion.0-HB.zip $path/DRG/output
     cd
     cd $path/DRG/output
-    sshpass -p $password rsync -avP -e ssh DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/drg-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/drg-sprout/STOCK-ROMS
     cd
-    cd $path    
+    cd $path
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @Nokia6plusofficial -P image.png -C " 
@@ -92,16 +109,18 @@ DRG()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS/DRG-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/drg-sprout/files/STOCK-ROMS/$buildnumber-$androidversion.0-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1 Plus*
-    ⚡Build Version: *DRG-$buildnumber-0-00WW-B01*
-    ⚡Android Version: *$androidversion*
+    ⚡Build Version: *$buildnumber*
+    ⚡Android Version: *$androidversion.0*
     ⚡Google Security Patch : *$securitypatch*
     👤 By: *Raghu Varma*
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @Nokia6plusofficial ✅" 
+    umount system
+    rm -r DRG system* rv5.txt   
 }    
 
 B2N()
@@ -109,7 +128,7 @@ B2N()
     mkdir B2N
     cd B2N
     wget $B2N
-    unzip *
+    unzip *.zip
     mkdir payload
     mkdir output
     cp -r payload.bin $path/B2N/payload
@@ -123,37 +142,57 @@ B2N()
     chmod a+x simg2img
     chmod a+x img2simg
     ./payload_dumper.py payload.bin 
-    mv abl.img          B2N-$buildnumber-0-00WW-B01-abl.img
-    mv bluetooth.img    B2N-$buildnumber-0-00WW-B01-bluetooth.img
-    mv boot.img         B2N-$buildnumber-0-00WW-B01-boot.img
-    mv cda.img          B2N-$buildnumber-0-00WW-B01-cda.img
-    mv cmnlib.img       B2N-$buildnumber-0-00WW-B01-cmnlib.img
-    mv cmnlib64.img     B2N-$buildnumber-0-00WW-B01-cmnlib64.img
-    mv devcfg.img       B2N-$buildnumber-0-00WW-B01-devcfg.img
-    mv dsp.img          B2N-$buildnumber-0-00WW-B01-dsp.img
-    mv hidden.img       B2N-$buildnumber-0-00WW-B01-hidden.img
-    mv hyp.img          B2N-$buildnumber-0-00WW-B01-hyp.img
-    mv keymaster.img    B2N-$buildnumber-0-00WW-B01-keymaster.img
-    mv mdtp.img         B2N-$buildnumber-0-00WW-B01-mdtp.img
-    mv mdtpsecapp.img   B2N-$buildnumber-0-00WW-B01-mdtpsecapp.img
-    mv modem.img        B2N-$buildnumber-0-00WW-B01-modem.img
-    mv nvdef.img        B2N-$buildnumber-0-00WW-B01-nvdef.img
-    mv pmic.img         B2N-$buildnumber-0-00WW-B01-pmic.img
-    mv rpm.img          B2N-$buildnumber-0-00WW-B01-rpm.img
-    mv splash.img       B2N-$buildnumber-0-00WW-B01-splash.img
-    mv systeminfo.img   B2N-$buildnumber-0-00WW-B01-systeminfo.img
-    mv tz.img           B2N-$buildnumber-0-00WW-B01-tz.img
-    mv xbl.img          B2N-$buildnumber-0-00WW-B01-xbl.img
-    ./img2simg system.img B2N-$buildnumber-0-00WW-B01-system.img
-    ./img2simg vendor.img B2N-$buildnumber-0-00WW-B01-vendor.img
-    rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
-    cp -r B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/B2N/output
+    sed -n 1p systeminfo.img > rv1.txt
+    sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
+    sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
+    sed 's/,//g' rv3.txt > rv4.txt
+    sed 's/.$//' rv4.txt > $path/rv5.txt
+    buildnumber=$(grep "B2N" $path/rv5.txt)
+    mv abl.img          $buildnumber-abl.img
+    mv bluetooth.img    $buildnumber-bluetooth.img
+    mv boot.img         $buildnumber-boot.img
+    mv cda.img          $buildnumber-cda.img
+    mv cmnlib.img       $buildnumber-cmnlib.img
+    mv cmnlib64.img     $buildnumber-cmnlib64.img
+    mv devcfg.img       $buildnumber-devcfg.img
+    mv dsp.img          $buildnumber-dsp.img
+    mv hidden.img       $buildnumber-hidden.img
+    mv hyp.img          $buildnumber-hyp.img
+    mv keymaster.img    $buildnumber-keymaster.img
+    mv mdtp.img         $buildnumber-mdtp.img
+    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
+    mv modem.img        $buildnumber-modem.img
+    mv nvdef.img        $buildnumber-nvdef.img
+    mv pmic.img         $buildnumber-pmic.img
+    mv rpm.img          $buildnumber-rpm.img
+    mv splash.img       $buildnumber-splash.img
+    mv systeminfo.img   $buildnumber-systeminfo.img
+    mv tz.img           $buildnumber-tz.img
+    mv xbl.img          $buildnumber-xbl.img
+    ./img2simg system.img $buildnumber-system.img
+    ./img2simg vendor.img $buildnumber-vendor.img
+    cp -r system.img $path
+	rm -r system.img vendor.img
+    cd
+    cd $path
+    mkdir system
+    mount -o rw,noatime system.img system
+    androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
+    if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
+    androidversion=$(echo $androidversion | cut -d "." -f 1)
+    fi
+    securitypatch=`cat system/system/build.prop | grep ro.build.version.security_patch | cut -d "=" -f 2`
+    if [ $(echo $securitypatch | cut -d "." -f 2) == 0 ]; then
+    securitypatch=$(echo $securitypatch | cut -d "." -f 1)
+    fi    
+    cd $path/B2N/payload
+    zip -r $buildnumber-$androidversion.0-HB.zip *.img
+    cp -r $buildnumber-$androidversion.0-HB.zip $path/B2N/output
     cd
     cd $path/B2N/output
-    sshpass -p $password rsync -avP -e ssh B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/b2n-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/b2n-sprout/STOCK-ROMS
     cd
-    cd $path    
+    cd $path
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @Nokia7plusOfficial -P image.png -C " 
@@ -163,16 +202,18 @@ B2N()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS/B2N-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/b2n-sprout/files/STOCK-ROMS/$buildnumber-$androidversion.0-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7 Plus*
-    ⚡Build Version: *B2N-$buildnumber-0-00WW-B01*
-    ⚡Android Version: *$androidversion*
+    ⚡Build Version: *$buildnumber*
+    ⚡Android Version: *$androidversion.0*
     ⚡Google Security Patch : *$securitypatch*
     👤 By: *Raghu Varma*
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @Nokia7plusOfficial ✅" 
+    umount system
+    rm -r B2N system* rv5.txt  
 }  
 
 PL2()
@@ -180,7 +221,7 @@ PL2()
     mkdir PL2
     cd PL2
     wget $PL2
-    unzip *
+    unzip *.zip
     mkdir payload
     mkdir output
     cp -r payload.bin $path/PL2/payload
@@ -194,37 +235,57 @@ PL2()
     chmod a+x simg2img
     chmod a+x img2simg
     ./payload_dumper.py payload.bin 
-    mv abl.img          PL2-$buildnumber-0-00WW-B01-abl.img
-    mv bluetooth.img    PL2-$buildnumber-0-00WW-B01-bluetooth.img
-    mv boot.img         PL2-$buildnumber-0-00WW-B01-boot.img
-    mv cda.img          PL2-$buildnumber-0-00WW-B01-cda.img
-    mv cmnlib.img       PL2-$buildnumber-0-00WW-B01-cmnlib.img
-    mv cmnlib64.img     PL2-$buildnumber-0-00WW-B01-cmnlib64.img
-    mv devcfg.img       PL2-$buildnumber-0-00WW-B01-devcfg.img
-    mv dsp.img          PL2-$buildnumber-0-00WW-B01-dsp.img
-    mv hidden.img       PL2-$buildnumber-0-00WW-B01-hidden.img
-    mv hyp.img          PL2-$buildnumber-0-00WW-B01-hyp.img
-    mv keymaster.img    PL2-$buildnumber-0-00WW-B01-keymaster.img
-    mv mdtp.img         PL2-$buildnumber-0-00WW-B01-mdtp.img
-    mv mdtpsecapp.img   PL2-$buildnumber-0-00WW-B01-mdtpsecapp.img
-    mv modem.img        PL2-$buildnumber-0-00WW-B01-modem.img
-    mv nvdef.img        PL2-$buildnumber-0-00WW-B01-nvdef.img
-    mv pmic.img         PL2-$buildnumber-0-00WW-B01-pmic.img
-    mv rpm.img          PL2-$buildnumber-0-00WW-B01-rpm.img
-    mv splash.img       PL2-$buildnumber-0-00WW-B01-splash.img
-    mv systeminfo.img   PL2-$buildnumber-0-00WW-B01-systeminfo.img
-    mv tz.img           PL2-$buildnumber-0-00WW-B01-tz.img
-    mv xbl.img          PL2-$buildnumber-0-00WW-B01-xbl.img
-    ./img2simg system.img PL2-$buildnumber-0-00WW-B01-system.img
-    ./img2simg vendor.img PL2-$buildnumber-0-00WW-B01-vendor.img
-    rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
-    cp -r PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/PL2/output
+    sed -n 1p systeminfo.img > rv1.txt
+    sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
+    sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
+    sed 's/,//g' rv3.txt > rv4.txt
+    sed 's/.$//' rv4.txt > $path/rv5.txt
+    buildnumber=$(grep "PL2" $path/rv5.txt)
+    mv abl.img          $buildnumber-abl.img
+    mv bluetooth.img    $buildnumber-bluetooth.img
+    mv boot.img         $buildnumber-boot.img
+    mv cda.img          $buildnumber-cda.img
+    mv cmnlib.img       $buildnumber-cmnlib.img
+    mv cmnlib64.img     $buildnumber-cmnlib64.img
+    mv devcfg.img       $buildnumber-devcfg.img
+    mv dsp.img          $buildnumber-dsp.img
+    mv hidden.img       $buildnumber-hidden.img
+    mv hyp.img          $buildnumber-hyp.img
+    mv keymaster.img    $buildnumber-keymaster.img
+    mv mdtp.img         $buildnumber-mdtp.img
+    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
+    mv modem.img        $buildnumber-modem.img
+    mv nvdef.img        $buildnumber-nvdef.img
+    mv pmic.img         $buildnumber-pmic.img
+    mv rpm.img          $buildnumber-rpm.img
+    mv splash.img       $buildnumber-splash.img
+    mv systeminfo.img   $buildnumber-systeminfo.img
+    mv tz.img           $buildnumber-tz.img
+    mv xbl.img          $buildnumber-xbl.img
+    ./img2simg system.img $buildnumber-system.img
+    ./img2simg vendor.img $buildnumber-vendor.img
+    cp -r system.img $path
+	rm -r system.img vendor.img
+    cd
+    cd $path
+    mkdir system
+    mount -o rw,noatime system.img system
+    androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
+    if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
+    androidversion=$(echo $androidversion | cut -d "." -f 1)
+    fi
+    securitypatch=`cat system/system/build.prop | grep ro.build.version.security_patch | cut -d "=" -f 2`
+    if [ $(echo $securitypatch | cut -d "." -f 2) == 0 ]; then
+    securitypatch=$(echo $securitypatch | cut -d "." -f 1)
+    fi    
+    cd $path/PL2/payload
+    zip -r $buildnumber-$androidversion.0-HB.zip *.img
+    cp -r $buildnumber-$androidversion.0-HB.zip $path/PL2/output
     cd
     cd $path/PL2/output
-    sshpass -p $password rsync -avP -e ssh PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/pl2-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/pl2-sprout/STOCK-ROMS
     cd
-    cd $path    
+    cd $path
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @nokia7161 -P image.png -C " 
@@ -234,16 +295,18 @@ PL2()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS/PL2-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/pl2-sprout/files/STOCK-ROMS/$buildnumber-$androidversion.0-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 6.1*
-    ⚡Build Version: *PL2-$buildnumber-0-00WW-B01*
-    ⚡Android Version: *$androidversion*
+    ⚡Build Version: *$buildnumber*
+    ⚡Android Version: *$androidversion.0*
     ⚡Google Security Patch : *$securitypatch*
     👤 By: *Raghu Varma*
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @nokia7161 ✅" 
+    umount system
+    rm -r PL2 system* rv5.txt    
 }  
 
 CTL()
@@ -251,7 +314,7 @@ CTL()
     mkdir CTL
     cd CTL
     wget $CTL
-    unzip *
+    unzip *.zip
     mkdir payload
     mkdir output
     cp -r payload.bin $path/CTL/payload
@@ -265,37 +328,57 @@ CTL()
     chmod a+x simg2img
     chmod a+x img2simg
     ./payload_dumper.py payload.bin 
-    mv abl.img          CTL-$buildnumber-0-00WW-B01-abl.img
-    mv bluetooth.img    CTL-$buildnumber-0-00WW-B01-bluetooth.img
-    mv boot.img         CTL-$buildnumber-0-00WW-B01-boot.img
-    mv cda.img          CTL-$buildnumber-0-00WW-B01-cda.img
-    mv cmnlib.img       CTL-$buildnumber-0-00WW-B01-cmnlib.img
-    mv cmnlib64.img     CTL-$buildnumber-0-00WW-B01-cmnlib64.img
-    mv devcfg.img       CTL-$buildnumber-0-00WW-B01-devcfg.img
-    mv dsp.img          CTL-$buildnumber-0-00WW-B01-dsp.img
-    mv hidden.img       CTL-$buildnumber-0-00WW-B01-hidden.img
-    mv hyp.img          CTL-$buildnumber-0-00WW-B01-hyp.img
-    mv keymaster.img    CTL-$buildnumber-0-00WW-B01-keymaster.img
-    mv mdtp.img         CTL-$buildnumber-0-00WW-B01-mdtp.img
-    mv mdtpsecapp.img   CTL-$buildnumber-0-00WW-B01-mdtpsecapp.img
-    mv modem.img        CTL-$buildnumber-0-00WW-B01-modem.img
-    mv nvdef.img        CTL-$buildnumber-0-00WW-B01-nvdef.img
-    mv pmic.img         CTL-$buildnumber-0-00WW-B01-pmic.img
-    mv rpm.img          CTL-$buildnumber-0-00WW-B01-rpm.img
-    mv splash.img       CTL-$buildnumber-0-00WW-B01-splash.img
-    mv systeminfo.img   CTL-$buildnumber-0-00WW-B01-systeminfo.img
-    mv tz.img           CTL-$buildnumber-0-00WW-B01-tz.img
-    mv xbl.img          CTL-$buildnumber-0-00WW-B01-xbl.img
-    ./img2simg system.img CTL-$buildnumber-0-00WW-B01-system.img
-    ./img2simg vendor.img CTL-$buildnumber-0-00WW-B01-vendor.img
-    rm -r payload.bin payload_dumper.py update_metadata_pb2.py update_metadata_pb2.pyc simg2img img2simg vendor.img system.img 
-    zip -r CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip *
-    cp -r CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip $path/CTL/output
+    sed -n 1p systeminfo.img > rv1.txt
+    sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
+    sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
+    sed 's/,//g' rv3.txt > rv4.txt
+    sed 's/.$//' rv4.txt > $path/rv5.txt
+    buildnumber=$(grep "CTL" $path/rv5.txt)
+    mv abl.img          $buildnumber-abl.img
+    mv bluetooth.img    $buildnumber-bluetooth.img
+    mv boot.img         $buildnumber-boot.img
+    mv cda.img          $buildnumber-cda.img
+    mv cmnlib.img       $buildnumber-cmnlib.img
+    mv cmnlib64.img     $buildnumber-cmnlib64.img
+    mv devcfg.img       $buildnumber-devcfg.img
+    mv dsp.img          $buildnumber-dsp.img
+    mv hidden.img       $buildnumber-hidden.img
+    mv hyp.img          $buildnumber-hyp.img
+    mv keymaster.img    $buildnumber-keymaster.img
+    mv mdtp.img         $buildnumber-mdtp.img
+    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
+    mv modem.img        $buildnumber-modem.img
+    mv nvdef.img        $buildnumber-nvdef.img
+    mv pmic.img         $buildnumber-pmic.img
+    mv rpm.img          $buildnumber-rpm.img
+    mv splash.img       $buildnumber-splash.img
+    mv systeminfo.img   $buildnumber-systeminfo.img
+    mv tz.img           $buildnumber-tz.img
+    mv xbl.img          $buildnumber-xbl.img
+    ./img2simg system.img $buildnumber-system.img
+    ./img2simg vendor.img $buildnumber-vendor.img
+    cp -r system.img $path
+	rm -r system.img vendor.img
+    cd
+    cd $path
+    mkdir system
+    mount -o rw,noatime system.img system
+    androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
+    if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
+    androidversion=$(echo $androidversion | cut -d "." -f 1)
+    fi
+    securitypatch=`cat system/system/build.prop | grep ro.build.version.security_patch | cut -d "=" -f 2`
+    if [ $(echo $securitypatch | cut -d "." -f 2) == 0 ]; then
+    securitypatch=$(echo $securitypatch | cut -d "." -f 1)
+    fi    
+    cd $path/CTL/payload
+    zip -r $buildnumber-$androidversion.0-HB.zip *.img
+    cp -r $buildnumber-$androidversion.0-HB.zip $path/CTL/output
     cd
     cd $path/CTL/output
-    sshpass -p $password rsync -avP -e ssh CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/ctl-sprout/STOCK-ROMS
+    sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/ctl-sprout/STOCK-ROMS
     cd
-    cd $path    
+    cd $path
     wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @nokia7161 -P image.png -C " 
@@ -305,16 +388,18 @@ CTL()
     
     $(date)*
     
-    ⬇️ [Download Rom](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS/CTL-$buildnumber-0-00WW-B01-$androidversion-HB.zip/download) 
+    ⬇️ [Download Rom](https://sourceforge.net/projects/ctl-sprout/files/STOCK-ROMS/$buildnumber-$androidversion.0-HB.zip/download) 
     🔨 [Download flash tool](https://github.com/RaghuVarma331/Nokia-SDM660-Tool/releases)
     💬 [Flashing procedure](https://raw.githubusercontent.com/RaghuVarma331/changelogs/master/crossdevelopment/hbinstallation.txt)
     📱 Device: *Nokia 7.1*
-    ⚡Build Version: *CTL-$buildnumber-0-00WW-B01*
-    ⚡Android Version: *$androidversion*
+    ⚡Build Version: *$buildnumber*
+    ⚡Android Version: *$androidversion.0*
     ⚡Google Security Patch : *$securitypatch*
     👤 By: *Raghu Varma*
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @nokia7161 ✅" 
+    umount system
+    rm -r CTL system* rv5.txt    
 } 
 
 # Main Menu
