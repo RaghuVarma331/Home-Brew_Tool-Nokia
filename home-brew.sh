@@ -29,7 +29,7 @@ B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/3f7
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/be7e54518410d1752dd72f99dba3aecdee793bdb.zip
 CTL=https://android.googleapis.com/packages/ota-api/nokia_ctlsprout_crystal00ww/b708f828b774c5d737530f3d1ea200db7a918308.zip
 password=
-path=
+path=$(pwd)
 
 # Init Methods
 
