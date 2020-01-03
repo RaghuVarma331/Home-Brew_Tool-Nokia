@@ -102,7 +102,7 @@ DRG()
     sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/drg-sprout/STOCK-ROMS
     cd
     cd $path
-    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget  https://github.com/RaghuVarma331/scripts/raw/master/pythonscripts/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @Nokia6plusofficial -P image.png -C " 
     *
@@ -195,7 +195,7 @@ B2N()
     sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/b2n-sprout/STOCK-ROMS
     cd
     cd $path
-    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget  https://github.com/RaghuVarma331/scripts/raw/master/pythonscripts/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @Nokia7plusOfficial -P image.png -C " 
     *
@@ -288,7 +288,7 @@ PL2()
     sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/pl2-sprout/STOCK-ROMS
     cd
     cd $path
-    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget  https://github.com/RaghuVarma331/scripts/raw/master/pythonscripts/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @nokia7161 -P image.png -C " 
     *
@@ -381,7 +381,7 @@ CTL()
     sshpass -p $password rsync -avP -e ssh $buildnumber-$androidversion.0-HB.zip raghuvarma331@frs.sourceforge.net:/home/frs/project/ctl-sprout/STOCK-ROMS
     cd
     cd $path
-    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget  https://github.com/RaghuVarma331/scripts/raw/master/pythonscripts/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @nokia7161 -P image.png -C " 
     *
@@ -470,7 +470,7 @@ DDV()
     cd
     cd $path
     umount system
-    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget  https://github.com/RaghuVarma331/scripts/raw/master/pythonscripts/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @Nokia7262 -P image.png -C " 
     *
@@ -561,7 +561,7 @@ SLD()
     cd
     cd $path
     umount system
-    wget https://github.com/RaghuVarma331/scripts/raw/master/telegram.py
+    wget  https://github.com/RaghuVarma331/scripts/raw/master/pythonscripts/telegram.py
     wget https://github.com/RaghuVarma331/custom_roms_banners/raw/master/image.png
     python telegram.py -t $Telegram_Api_code -c @Nokia7262 -P image.png -C " 
     *
