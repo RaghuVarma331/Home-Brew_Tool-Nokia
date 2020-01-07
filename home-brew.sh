@@ -22,7 +22,7 @@ clear
 
 Telegram_Api_code=
 DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/07330e258c1095c5eea9e1b697bb4ea8d92ebc9e.zip
-B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/3f78de06f86cc03da028648341aa1987fe33b2df.zip
+B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/afd338bfb14d447b716c220424b2ad2c66213183.zip
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/be7e54518410d1752dd72f99dba3aecdee793bdb.zip
 CTL=https://android.googleapis.com/packages/ota-api/nokia_ctlsprout_crystal00ww/29ad191f90eedc643ed008dc06c81ed3c5b5565a.zip
 DDV=https://android.googleapis.com/packages/ota-api/nokia_ddvsprout_daredevil00ww/833c052838239419faa9a4510da474c8b0caf7e3.zip
