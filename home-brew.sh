@@ -25,8 +25,8 @@ DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/0
 B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/afd338bfb14d447b716c220424b2ad2c66213183.zip
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/c6260831df0acdfe9828f18bcea7ffb556f4b2e5.zip
 CTL=https://android.googleapis.com/packages/ota-api/nokia_ctlsprout_crystal00ww/29ad191f90eedc643ed008dc06c81ed3c5b5565a.zip
-DDV=https://android.googleapis.com/packages/ota-api/nokia_ddvsprout_daredevil00ww/833c052838239419faa9a4510da474c8b0caf7e3.zip
-SLD=https://android.googleapis.com/packages/ota-api/nokia_sldsprout_starlord00ww/7aba315391c8a45bc23f809ef27e072086d4c8d3.zip
+DDV=https://android.googleapis.com/packages/ota-api/nokia_ddvsprout_daredevil00ww/cbee5a028c5f1fa70537366d3d90e78cee38acc7.zip
+SLD=https://android.googleapis.com/packages/ota-api/nokia_sldsprout_starlord00ww/7b47d319f7ebab7d95341d6323a8965af5d334fc.zip
 password=
 path=/root
 
