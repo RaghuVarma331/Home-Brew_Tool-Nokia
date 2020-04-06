@@ -57,35 +57,16 @@ DRG()
     sed 's/,//g' rv3.txt > rv4.txt
     sed 's/.$//' rv4.txt > $path/rv5.txt
     buildnumber=$(grep "DRG" $path/rv5.txt)
-    mv abl.img          $buildnumber-abl.img
-    mv bluetooth.img    $buildnumber-bluetooth.img
-    mv boot.img         $buildnumber-boot.img
-    mv cda.img          $buildnumber-cda.img
-    mv cmnlib.img       $buildnumber-cmnlib.img
-    mv cmnlib64.img     $buildnumber-cmnlib64.img
-    mv devcfg.img       $buildnumber-devcfg.img
-    mv dsp.img          $buildnumber-dsp.img
-    mv hidden.img       $buildnumber-hidden.img
-    mv hyp.img          $buildnumber-hyp.img
-    mv keymaster.img    $buildnumber-keymaster.img
-    mv mdtp.img         $buildnumber-mdtp.img
-    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
-    mv modem.img        $buildnumber-modem.img
-    mv nvdef.img        $buildnumber-nvdef.img
-    mv pmic.img         $buildnumber-pmic.img
-    mv rpm.img          $buildnumber-rpm.img
-    mv splash.img       $buildnumber-splash.img
-    mv systeminfo.img   $buildnumber-systeminfo.img
-    mv tz.img           $buildnumber-tz.img
-    mv xbl.img          $buildnumber-xbl.img
-    ./img2simg system.img $buildnumber-system.img
-    ./img2simg vendor.img $buildnumber-vendor.img
-    cp -r system.img $path
-    rm -r system.img vendor.img
+    mv system.img sys.img
+    mv vendor.img ven.img
+    ./img2simg sys.img system.img
+    ./img2simg ven.img vendor.img
+    cp -r sys.img $path
+    rm -r sys.img ven.img
     cd
     cd $path
     mkdir system
-    mount -o rw,noatime system.img system
+    mount -o rw,noatime sys.img system
     androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
     if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
     androidversion=$(echo $androidversion | cut -d "." -f 1)
@@ -150,35 +131,16 @@ B2N()
     sed 's/,//g' rv3.txt > rv4.txt
     sed 's/.$//' rv4.txt > $path/rv5.txt
     buildnumber=$(grep "B2N" $path/rv5.txt)
-    mv abl.img          $buildnumber-abl.img
-    mv bluetooth.img    $buildnumber-bluetooth.img
-    mv boot.img         $buildnumber-boot.img
-    mv cda.img          $buildnumber-cda.img
-    mv cmnlib.img       $buildnumber-cmnlib.img
-    mv cmnlib64.img     $buildnumber-cmnlib64.img
-    mv devcfg.img       $buildnumber-devcfg.img
-    mv dsp.img          $buildnumber-dsp.img
-    mv hidden.img       $buildnumber-hidden.img
-    mv hyp.img          $buildnumber-hyp.img
-    mv keymaster.img    $buildnumber-keymaster.img
-    mv mdtp.img         $buildnumber-mdtp.img
-    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
-    mv modem.img        $buildnumber-modem.img
-    mv nvdef.img        $buildnumber-nvdef.img
-    mv pmic.img         $buildnumber-pmic.img
-    mv rpm.img          $buildnumber-rpm.img
-    mv splash.img       $buildnumber-splash.img
-    mv systeminfo.img   $buildnumber-systeminfo.img
-    mv tz.img           $buildnumber-tz.img
-    mv xbl.img          $buildnumber-xbl.img
-    ./img2simg system.img $buildnumber-system.img
-    ./img2simg vendor.img $buildnumber-vendor.img
-    cp -r system.img $path
-    rm -r system.img vendor.img
+    mv system.img sys.img
+    mv vendor.img ven.img
+    ./img2simg sys.img system.img
+    ./img2simg ven.img vendor.img
+    cp -r sys.img $path
+    rm -r sys.img ven.img
     cd
     cd $path
     mkdir system
-    mount -o rw,noatime system.img system
+    mount -o rw,noatime sys.img system
     androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
     if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
     androidversion=$(echo $androidversion | cut -d "." -f 1)
@@ -243,35 +205,16 @@ PL2()
     sed 's/,//g' rv3.txt > rv4.txt
     sed 's/.$//' rv4.txt > $path/rv5.txt
     buildnumber=$(grep "PL2" $path/rv5.txt)
-    mv abl.img          $buildnumber-abl.img
-    mv bluetooth.img    $buildnumber-bluetooth.img
-    mv boot.img         $buildnumber-boot.img
-    mv cda.img          $buildnumber-cda.img
-    mv cmnlib.img       $buildnumber-cmnlib.img
-    mv cmnlib64.img     $buildnumber-cmnlib64.img
-    mv devcfg.img       $buildnumber-devcfg.img
-    mv dsp.img          $buildnumber-dsp.img
-    mv hidden.img       $buildnumber-hidden.img
-    mv hyp.img          $buildnumber-hyp.img
-    mv keymaster.img    $buildnumber-keymaster.img
-    mv mdtp.img         $buildnumber-mdtp.img
-    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
-    mv modem.img        $buildnumber-modem.img
-    mv nvdef.img        $buildnumber-nvdef.img
-    mv pmic.img         $buildnumber-pmic.img
-    mv rpm.img          $buildnumber-rpm.img
-    mv splash.img       $buildnumber-splash.img
-    mv systeminfo.img   $buildnumber-systeminfo.img
-    mv tz.img           $buildnumber-tz.img
-    mv xbl.img          $buildnumber-xbl.img
-    ./img2simg system.img $buildnumber-system.img
-    ./img2simg vendor.img $buildnumber-vendor.img
-    cp -r system.img $path
-    rm -r system.img vendor.img
+    mv system.img sys.img
+    mv vendor.img ven.img
+    ./img2simg sys.img system.img
+    ./img2simg ven.img vendor.img
+    cp -r sys.img $path
+    rm -r sys.img ven.img
     cd
     cd $path
     mkdir system
-    mount -o rw,noatime system.img system
+    mount -o rw,noatime sys.img system
     androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
     if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
     androidversion=$(echo $androidversion | cut -d "." -f 1)
@@ -336,35 +279,16 @@ CTL()
     sed 's/,//g' rv3.txt > rv4.txt
     sed 's/.$//' rv4.txt > $path/rv5.txt
     buildnumber=$(grep "CTL" $path/rv5.txt)
-    mv abl.img          $buildnumber-abl.img
-    mv bluetooth.img    $buildnumber-bluetooth.img
-    mv boot.img         $buildnumber-boot.img
-    mv cda.img          $buildnumber-cda.img
-    mv cmnlib.img       $buildnumber-cmnlib.img
-    mv cmnlib64.img     $buildnumber-cmnlib64.img
-    mv devcfg.img       $buildnumber-devcfg.img
-    mv dsp.img          $buildnumber-dsp.img
-    mv hidden.img       $buildnumber-hidden.img
-    mv hyp.img          $buildnumber-hyp.img
-    mv keymaster.img    $buildnumber-keymaster.img
-    mv mdtp.img         $buildnumber-mdtp.img
-    mv mdtpsecapp.img   $buildnumber-mdtpsecapp.img
-    mv modem.img        $buildnumber-modem.img
-    mv nvdef.img        $buildnumber-nvdef.img
-    mv pmic.img         $buildnumber-pmic.img
-    mv rpm.img          $buildnumber-rpm.img
-    mv splash.img       $buildnumber-splash.img
-    mv systeminfo.img   $buildnumber-systeminfo.img
-    mv tz.img           $buildnumber-tz.img
-    mv xbl.img          $buildnumber-xbl.img
-    ./img2simg system.img $buildnumber-system.img
-    ./img2simg vendor.img $buildnumber-vendor.img
-    cp -r system.img $path
-    rm -r system.img vendor.img
+    mv system.img sys.img
+    mv vendor.img ven.img
+    ./img2simg sys.img system.img
+    ./img2simg ven.img vendor.img
+    cp -r sys.img $path
+    rm -r sys.img ven.img
     cd
     cd $path
     mkdir system
-    mount -o rw,noatime system.img system
+    mount -o rw,noatime sys.img system
     androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
     if [ $(echo $androidversion | cut -d "." -f 2) == 0 ]; then
     androidversion=$(echo $androidversion | cut -d "." -f 1)
@@ -433,24 +357,11 @@ DDV()
     buildnumber=$(echo $buildnumber | cut -d "." -f 1)
     fi
     cd $path/DDV/payload
-    mv abl.img DDV-$buildnumber-abl.img
-    mv bluetooth.img DDV-$buildnumber-bluetooth.img
-    mv boot.img DDV-$buildnumber-boot.img
-    mv cmnlib.img DDV-$buildnumber-cmnlib.img
-    mv cmnlib64.img DDV-$buildnumber-cmnlib64.img
-    mv devcfg.img DDV-$buildnumber-devcfg.img
-    mv dtbo.img DDV-$buildnumber-dtbo.img
-    mv hyp.img DDV-$buildnumber-hyp.img
-    mv keymaster.img DDV-$buildnumber-keymaster.img
-    mv modem.img DDV-$buildnumber-modem.img
-    mv pmic.img DDV-$buildnumber-pmic.img
-    mv rpm.img DDV-$buildnumber-rpm.img
-    mv tz.img DDV-$buildnumber-tz.img
-    mv vbmeta.img DDV-$buildnumber-vbmeta.img
-    mv xbl.img DDV-$buildnumber-xbl.img
-    ./img2simg system.img DDV-$buildnumber-system.img
-    ./img2simg vendor.img DDV-$buildnumber-vendor.img
-    rm -r system.img vendor.img
+    mv system.img sys.img
+    mv vendor.img ven.img
+    ./img2simg sys.img system.img
+    ./img2simg ven.img vendor.img
+    rm -r sys.img ven.img
     cd
     cd $path
     androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
@@ -524,24 +435,11 @@ SLD()
     buildnumber=$(echo $buildnumber | cut -d "." -f 1)
     fi
     cd $path/SLD/payload
-    mv abl.img SLD-$buildnumber-abl.img
-    mv bluetooth.img SLD-$buildnumber-bluetooth.img
-    mv boot.img SLD-$buildnumber-boot.img
-    mv cmnlib.img SLD-$buildnumber-cmnlib.img
-    mv cmnlib64.img SLD-$buildnumber-cmnlib64.img
-    mv devcfg.img SLD-$buildnumber-devcfg.img
-    mv dtbo.img SLD-$buildnumber-dtbo.img
-    mv hyp.img SLD-$buildnumber-hyp.img
-    mv keymaster.img SLD-$buildnumber-keymaster.img
-    mv modem.img SLD-$buildnumber-modem.img
-    mv pmic.img SLD-$buildnumber-pmic.img
-    mv rpm.img SLD-$buildnumber-rpm.img
-    mv tz.img SLD-$buildnumber-tz.img
-    mv vbmeta.img SLD-$buildnumber-vbmeta.img
-    mv xbl.img SLD-$buildnumber-xbl.img
-    ./img2simg system.img SLD-$buildnumber-system.img
-    ./img2simg vendor.img SLD-$buildnumber-vendor.img
-    rm -r system.img vendor.img
+    mv system.img sys.img
+    mv vendor.img ven.img
+    ./img2simg sys.img system.img
+    ./img2simg ven.img vendor.img
+    rm -r sys.img ven.img
     cd
     cd $path
     androidversion=`cat system/system/build.prop | grep ro.build.version.release | cut -d "=" -f 2`
