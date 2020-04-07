@@ -103,7 +103,7 @@ DRG()
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @Nokia6plusofficial ✅" 
     umount system
-    rm -r DRG system* rv5.txt   
+    rm -r DRG system* rv5.txt sys.img
 }    
 
 B2N()
@@ -177,7 +177,7 @@ B2N()
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @Nokia7plusOfficial ✅" 
     umount system
-    rm -r B2N system* rv5.txt  
+    rm -r B2N system* rv5.txt sys.img
 }  
 
 PL2()
@@ -251,7 +251,7 @@ PL2()
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @nokia7161 ✅" 
     umount system
-    rm -r PL2 system* rv5.txt    
+    rm -r PL2 system* rv5.txt sys.img   
 }  
 
 CTL()
@@ -325,7 +325,7 @@ CTL()
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @nokia7161 ✅" 
     umount system
-    rm -r CTL system* rv5.txt    
+    rm -r CTL system* rv5.txt sys.img
 } 
 
 DDV()
@@ -401,7 +401,7 @@ DDV()
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @Nokia7262 ✅" 
     umount system    
-    rm -r system* DDV
+    rm -r system* DDV system.img
 
 }
 
@@ -479,7 +479,7 @@ SLD()
     #OTA #NOKIA #UPDATE #PATCH                                                                                                                                                                          
     Follow: @Nokia7262 ✅" 
     umount system    
-    rm -r system* SLD
+    rm -r system* SLD system.img
 }
 
 
