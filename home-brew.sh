@@ -489,8 +489,8 @@ echo "-----------------------------------------------------------"
 echo "A simple tool to make home brew stock rom from Full OTA.zip"
 echo "Coded By Raghu Varma.G "
 echo "-----------------------------------------------------------"
-PS3='Please select your option (1-6): '
-menuvar=("DRG" "B2N" "CTL" "PL2" "DDV" "SLD" "Exit")
+PS3='Please select your option (1-7): '
+menuvar=("DRG" "B2N" "CTL" "PL2" "DDV" "SLD" "ALL" "Exit")
 select menuvar in "${menuvar[@]}"
 do
     case $menuvar in
@@ -607,7 +607,31 @@ do
             echo "----------------------------------------------"
             read -n1 -r key
             break
-            ;;			    
+            ;;
+        "ALL")
+            clear
+            echo "----------------------------------------------"           
+            echo "Please be patient..."
+            # ALL
+            echo "----------------------------------------------"
+            echo "Posting in channel..."
+            echo " "
+            DRG
+	    B2N
+	    CTL
+	    PL2
+	    DDV
+	    SLD
+	    echo " "	    
+            echo "----------------------------------------------"
+            echo "Posting in Channel finished."
+            echo " "
+            echo "----------------------------------------------"
+            echo "Press any key for end the script."
+            echo "----------------------------------------------"
+            read -n1 -r key
+            break
+            ;;		    
         "Exit")
             break
             ;;
