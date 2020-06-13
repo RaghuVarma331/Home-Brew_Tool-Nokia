@@ -21,7 +21,7 @@ clear
 # Init Fields
 
 Telegram_Api_code=
-DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/07330e258c1095c5eea9e1b697bb4ea8d92ebc9e.zip
+DRG=https://android.googleapis.com/packages/ota-api/nokia_drgsprout_dragon00ww/b3cd1383da3705b76f38687aaeb38aa8cc1962e3.zip
 B2N=https://android.googleapis.com/packages/ota-api/nokia_b2nsprout_onyx00ww/afd338bfb14d447b716c220424b2ad2c66213183.zip
 PL2=https://android.googleapis.com/packages/ota-api/nokia_pl2sprout_plate200ww/c6260831df0acdfe9828f18bcea7ffb556f4b2e5.zip
 CTL=https://android.googleapis.com/packages/ota-api/nokia_ctlsprout_crystal00ww/29ad191f90eedc643ed008dc06c81ed3c5b5565a.zip
