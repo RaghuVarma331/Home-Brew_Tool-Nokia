@@ -50,7 +50,7 @@ DRG()
     chmod a+x update_metadata_pb2.py
     chmod a+x simg2img
     chmod a+x img2simg
-    ./payload_dumper.py payload.bin 
+    python3 payload_dumper.py payload.bin 
     sed -n 1p systeminfo.img > rv1.txt
     sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
     sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
@@ -124,7 +124,7 @@ B2N()
     chmod a+x update_metadata_pb2.py
     chmod a+x simg2img
     chmod a+x img2simg
-    ./payload_dumper.py payload.bin 
+    python3 payload_dumper.py payload.bin 
     sed -n 1p systeminfo.img > rv1.txt
     sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
     sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
@@ -198,7 +198,7 @@ PL2()
     chmod a+x update_metadata_pb2.py
     chmod a+x simg2img
     chmod a+x img2simg
-    ./payload_dumper.py payload.bin 
+    python3 payload_dumper.py payload.bin 
     sed -n 1p systeminfo.img > rv1.txt
     sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
     sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
@@ -272,7 +272,7 @@ CTL()
     chmod a+x update_metadata_pb2.py
     chmod a+x simg2img
     chmod a+x img2simg
-    ./payload_dumper.py payload.bin 
+    python3 payload_dumper.py payload.bin 
     sed -n 1p systeminfo.img > rv1.txt
     sed -e 's/\<mlf\>//g' rv1.txt  > rv2.txt
     sed -e 's/\MLF\>//g' rv2.txt > rv3.txt
@@ -346,7 +346,7 @@ DDV()
     chmod a+x update_metadata_pb2.py
     chmod a+x simg2img
     chmod a+x img2simg
-    ./payload_dumper.py payload.bin
+    python3 payload_dumper.py payload.bin
     cp -r system.img $path
     cd
     cd $path
@@ -424,7 +424,7 @@ SLD()
     chmod a+x update_metadata_pb2.py
     chmod a+x simg2img
     chmod a+x img2simg
-    ./payload_dumper.py payload.bin
+    python3 payload_dumper.py payload.bin
     cp -r system.img $path
     cd
     cd $path

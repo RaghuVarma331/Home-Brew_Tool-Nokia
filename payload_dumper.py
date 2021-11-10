@@ -1,92 +1,142 @@
 #!/usr/bin/env python
-import struct
+
 import hashlib
-import bz2
+import os
+import os.path
+import shutil
+import struct
+import subprocess
 import sys
+import zipfile
 
-try:
-    import lzma
-except ImportError:
-    from backports import lzma
+# from https://android.googlesource.com/platform/system/update_engine/+/refs/heads/master/scripts/update_payload/
+import update_metadata_pb2
 
-import update_metadata_pb2 as um
+PROGRAMS = [ 'bzcat', 'xzcat' ]
 
-flatten = lambda l: [item for sublist in l for item in sublist]
+BRILLO_MAJOR_PAYLOAD_VERSION = 2
 
-def u32(x):
-    return struct.unpack('>I', x)[0]
+class PayloadError(Exception):
+  pass
 
-def u64(x):
-    return struct.unpack('>Q', x)[0]
+class Payload(object):
+  class _PayloadHeader(object):
+    _MAGIC = b'CrAU'
 
-def verify_contiguous(exts):
-    blocks = 0
+    def __init__(self):
+      self.version = None
+      self.manifest_len = None
+      self.metadata_signature_len = None
+      self.size = None
 
-    for ext in exts:
-        if ext.start_block != blocks:
-            return False
+    def ReadFromPayload(self, payload_file):
+      magic = payload_file.read(4)
+      if magic != self._MAGIC:
+        raise PayloadError('Invalid payload magic: %s' % magic)
+      self.version = struct.unpack('>Q', payload_file.read(8))[0]
+      self.manifest_len = struct.unpack('>Q', payload_file.read(8))[0]
+      self.size = 20
+      self.metadata_signature_len = 0
+      if self.version != BRILLO_MAJOR_PAYLOAD_VERSION:
+        raise PayloadError('Unsupported payload version (%d)' % self.version)
+      self.size += 4
+      self.metadata_signature_len = struct.unpack('>I', payload_file.read(4))[0]
 
-        blocks += ext.num_blocks
+  def __init__(self, payload_file):
+    self.payload_file = payload_file
+    self.header = None
+    self.manifest = None
+    self.data_offset = None
+    self.metadata_signature = None
+    self.metadata_size = None
 
-    return True
+  def _ReadManifest(self):
+    return self.payload_file.read(self.header.manifest_len)
 
-def data_for_op(op):
-    p.seek(data_offset + op.data_offset)
-    data = p.read(op.data_length)
+  def _ReadMetadataSignature(self):
+    self.payload_file.seek(self.header.size + self.header.manifest_len)
+    return self.payload_file.read(self.header.metadata_signature_len);
 
-    assert hashlib.sha256(data).digest() == op.data_sha256_hash, 'operation data hash mismatch'
+  def ReadDataBlob(self, offset, length):
+    self.payload_file.seek(self.data_offset + offset)
+    return self.payload_file.read(length)
 
-    if op.type == op.REPLACE_XZ:
-        dec = lzma.LZMADecompressor()
-        data = dec.decompress(data) 
-    elif op.type == op.REPLACE_BZ:
-        dec = bz2.BZ2Decompressor()
-        data = dec.decompress(data) 
+  def Init(self):
+    self.header = self._PayloadHeader()
+    self.header.ReadFromPayload(self.payload_file)
+    manifest_raw = self._ReadManifest()
+    self.manifest = update_metadata_pb2.DeltaArchiveManifest()
+    self.manifest.ParseFromString(manifest_raw)
+    metadata_signature_raw = self._ReadMetadataSignature()
+    if metadata_signature_raw:
+      self.metadata_signature = update_metadata_pb2.Signatures()
+      self.metadata_signature.ParseFromString(metadata_signature_raw)
+    self.metadata_size = self.header.size + self.header.manifest_len
+    self.data_offset = self.metadata_size + self.header.metadata_signature_len
 
-    return data
+def decompress_payload(command, data, size, hash):
+  p = subprocess.Popen([command, '-'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+  r = p.communicate(data)[0]
+  if len(r) != size:
+    print("Unexpected size %d %d" % (len(r), size))
+  elif hashlib.sha256(data).digest() != hash:
+    print("Hash mismatch")
+  return r
 
-def dump_part(part):
-    print(part.partition_name)
+def parse_payload(payload_f, partition, out_f):
+  BLOCK_SIZE = 4096
+  for operation in partition.operations:
+    e = operation.dst_extents[0]
+    data = payload_f.ReadDataBlob(operation.data_offset, operation.data_length)
+    out_f.seek(e.start_block * BLOCK_SIZE)
+    if operation.type == update_metadata_pb2.InstallOperation.REPLACE:
+      out_f.write(data)
+    elif operation.type == update_metadata_pb2.InstallOperation.REPLACE_XZ:
+      r = decompress_payload('xzcat', data, e.num_blocks * BLOCK_SIZE, operation.data_sha256_hash)
+      out_f.write(r)
+    elif operation.type == update_metadata_pb2.InstallOperation.REPLACE_BZ:
+      r = decompress_payload('bzcat', data, e.num_blocks * BLOCK_SIZE, operation.data_sha256_hash)
+      out_f.write(r)
+    else:
+      raise PayloadError('Unhandled operation type ({} - {})'.format(operation.type,
+                         update_metadata_pb2.InstallOperation.Type.Name(operation.type)))
 
-    out_file = open('%s.img' % part.partition_name, 'wb')
-    h = hashlib.sha256()
+def main(filename, output_dir):
+  if filename.endswith('.zip'):
+    print("Extracting 'payload.bin' from OTA file...")
+    ota_zf = zipfile.ZipFile(filename)
+    payload_file = open(ota_zf.extract('payload.bin', output_dir), 'rb')
+  else:
+    payload_file = open(filename, 'rb')
 
-    for op in part.operations:
-        data = data_for_op(op)
-        h.update(data)
-        out_file.write(data)
+  payload = Payload(payload_file)
+  payload.Init()
 
-    assert h.digest() == part.new_partition_info.hash, 'partition hash mismatch'
+  for p in payload.manifest.partitions:
+    name = p.partition_name + '.img'
+    print("Extracting '%s'" % name)
+    fname = os.path.join(output_dir, name)
+    out_f = open(fname, 'wb')
+    try:
+      parse_payload(payload, p, out_f)
+    except PayloadError as e:
+      print('Failed: %s' % e)
+      out_f.close()
+      os.unlink(fname)
 
-p = open(sys.argv[1], 'rb')
+if __name__ == '__main__':
+  try:
+    filename = sys.argv[1]
+  except:
+    print('Usage: %s payload.bin [output_dir]' % sys.argv[0])
+    sys.exit()
 
-magic = p.read(4)
-assert magic == b'CrAU'
+  try:
+    output_dir = sys.argv[2]
+  except IndexError:
+    output_dir = os.getcwd()
 
-file_format_version = u64(p.read(8))
-assert file_format_version == 2
+  if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 
-manifest_size = u64(p.read(8))
-
-metadata_signature_size = 0
-
-if file_format_version > 1:
-    metadata_signature_size = u32(p.read(4))
-
-manifest = p.read(manifest_size)
-metadata_signature = p.read(metadata_signature_size)
-
-data_offset = p.tell()
-
-dam = um.DeltaArchiveManifest()
-dam.ParseFromString(manifest)
-
-for part in dam.partitions:
-    for op in part.operations:
-        assert op.type in (op.REPLACE, op.REPLACE_BZ, op.REPLACE_XZ), \
-                'unsupported op'
-
-    extents = flatten([op.dst_extents for op in part.operations])
-    assert verify_contiguous(extents), 'operations do not span full image'
-
-    dump_part(part)
+  main(filename, output_dir)
